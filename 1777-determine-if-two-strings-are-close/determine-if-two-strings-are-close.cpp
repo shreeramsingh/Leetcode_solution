@@ -16,18 +16,12 @@ public:
            freq2[ch2-'a']++;
        }
        for(int i=0;i<26;i++){
-           if(freq1[i] && freq2[i]<=0){
+           if(freq1[i]>=1 && freq2[i]<=0){
                return false;
            }
        }
         sort(freq1.begin(),freq1.end());
         sort(freq2.begin(),freq2.end());
-        for(int i=0;i<26;i++){
-            if(freq1[i]!=freq2[i]){
-                return false;
-            }
-        }
-
-        return true;
+        return freq1==freq2;
     }
 };
