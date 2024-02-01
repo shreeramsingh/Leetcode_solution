@@ -7,8 +7,9 @@ public:
             ans.push_back(temp);
             return;
         }
-        for(int i=0;i<m[digits[idx]-'0'].size();i++){
-            letterCombation(idx+1,digits,m,ans,temp+m[digits[idx]-'0'][i]);
+        string s=m[digits[idx]-'0'];
+        for(int i=0;i<s.size();i++){
+            letterCombation(idx+1,digits,m,ans,temp+s[i]);
         }
     }
     vector<string> letterCombinations(string digits) {
