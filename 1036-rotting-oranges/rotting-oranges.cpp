@@ -49,12 +49,12 @@ public:
         int ROWS = grid.size();
         int COLS = grid[0].size();
         vector<vector<int>> vis(ROWS, vector<int>(COLS, 0));
-        queue<tuple<int, int, int>> q;
+        queue<pair<pair<int,int>,int>>q;
         int cntFresh = 0;
         for (int i = 0; i < ROWS; ++i) {
             for (int j = 0; j < COLS; ++j) {
                 if (grid[i][j] == 2) {
-                    q.push({i, j, 0});
+                    q.push({{i,j},0});
                     vis[i][j] = 2;
                 }
                 if (grid[i][j] == 1) {
@@ -66,7 +66,9 @@ public:
         vector<int> delRow = {-1, 0, +1, 0};
         vector<int> delCol = {0, +1, 0, -1};
         while (!q.empty()) {
-            auto [r, c, t] = q.front();
+            int r= q.front().first.first;
+            int c= q.front().first.second;
+             int t= q.front().second;
             q.pop();
             maxTime = max(maxTime, t);
             for (int i = 0; i < 4; ++i) {
@@ -74,7 +76,7 @@ public:
                 int nCol = c + delCol[i];
                 if (nRow >= 0 && nRow < ROWS && nCol >= 0 && nCol < COLS && vis[nRow][nCol] == 0 && grid[nRow][nCol] == 1) {
                     vis[nRow][nCol] = 2;
-                    q.push({nRow, nCol, t + 1});
+                    q.push({{nRow,nCol},t+1});
                     cnt++;
                 }
             }
