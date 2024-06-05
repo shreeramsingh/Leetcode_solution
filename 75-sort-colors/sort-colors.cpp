@@ -1,13 +1,19 @@
 class Solution {
 public:
     void sortColors(vector<int>& nums) {
-        for(int i=0;i<nums.size();i++){
-            for(int j=i+1;j<nums.size();j++){
-                if(nums[i]>nums[j]){
-                swap(nums[i],nums[j]);
-                }
+        //#Dutch National flag problem three pointer approch
+        int low=0,mid=0,end=nums.size()-1;
+        while(mid<=end)
+        {
+            if(nums[mid]==0){
+                swap(nums[low],nums[mid]);
+                low++;mid++;
+            }else if(nums[mid]==1){
+                mid++;
+            }else{
+                swap(nums[mid],nums[end]);
+                end--;
             }
         }
-        
     }
 };
