@@ -1,31 +1,37 @@
 class Solution {
 public:
     vector<string>ans;
-    
-    void solve(string &cur, int n,int open,int close)
+    //brutee force
+    bool isValid(string &s)
+    {
+        int count=0;
+        for(auto &ch:s){
+            if(ch=='(') count++;
+            else count--;
+            //this case handle ())( this case
+            if(count<0) return false;
+        }
+        return count==0;
+    }
+    void solve(string &cur, int n)
     {
         if(cur.size()==2*n){
-        ans.push_back(cur);
+            if(isValid(cur)){
+                ans.push_back(cur);
+            }
             return ;
         }
-        //according to objevation open never should greater than n
-        if(open<n){
-            cur.push_back('(');
-            solve(cur,n,open+1,close);
-            cur.pop_back();
-        }
-        //according to objervation close never should greater than open
-        if(close<open){
-            cur.push_back(')');
-            solve(cur,n,open,close+1);
-            cur.pop_back();
-        }
-        
+
+        cur.push_back('(');
+        solve(cur,n);
+        cur.pop_back();
+        cur.push_back(')');
+        solve(cur,n);
+        cur.pop_back();
     }
     vector<string> generateParenthesis(int n) {
         string s="";
-        int open=0,close=0;
-        solve(s,n,open,close);
+        solve(s,n);
         return ans;
     }
 };
