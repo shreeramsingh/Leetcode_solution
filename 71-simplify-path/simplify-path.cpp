@@ -1,36 +1,29 @@
 class Solution {
 public:
     string simplifyPath(string path) {
-        int i=path.size()-1;
-        string ans="";
-        int back=0;
+        //This problem is solve through tokenization new concept
+        string token="";
+        stringstream ss(path);
+        stack<string>st;
+        while(getline(ss,token,'/')){
+            
+            if(token == "" || token==".") continue;
 
-        while(i>=0)
-        {
-            string temp="";
-            while(i>=0 and path[i]!='/')
-            {
-                temp+=path[i];
-                i--;
-            }
-            i--;
-            if(temp=="" || temp==".")
-            continue;
-            if(temp=="..")
-            {
-                back++;
-            }
-            else if(back>0){
-                back--;
-            }
-            else{
-                ans+=temp;
-                ans+="/";
+            if(token!=".."){
+                st.push(token);
+            }else if(!st.empty()){
+                st.pop();
             }
         }
-        reverse(ans.begin(),ans.end());
-        if(ans=="")
+        string result="";
+        if(st.empty())
         return "/";
-        return ans;
-    }
+        //add stack element into string without doing reverse
+        while(!st.empty())
+        {
+            result = "/"+st.top()+result;
+            st.pop();
+        }
+        return result;
+    }    
 };
