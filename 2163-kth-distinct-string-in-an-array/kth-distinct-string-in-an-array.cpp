@@ -1,29 +1,23 @@
 class Solution {
 public:
     string kthDistinct(vector<string>& arr, int k) {
-        unordered_set<string> distinct;
-        unordered_set<string> duplicate;
-
+        unordered_map<string, int> freqMap;
+    
+        // Count the frequency of each string in the array
         for (const string& str : arr) {
-            if (duplicate.count(str)) {
-                continue;
-            }
-            if (distinct.count(str)) {
-                distinct.erase(str);
-                duplicate.insert(str);
-            } else {
-                distinct.insert(str);
-            }
+            freqMap[str]++;
         }
-
+        
+        // Find the k-th distinct string
         for (const string& str : arr) {
-            if (!duplicate.count(str)) {
+            if (freqMap[str] == 1) {
                 k--;
             }
             if (k == 0) {
                 return str;
             }
         }
+        
         return "";
     }
 };
