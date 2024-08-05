@@ -5,10 +5,10 @@ public:
         unordered_set<string> duplicate;
 
         for (const string& str : arr) {
-            if (duplicate.find(str) != duplicate.end()) {
+            if (duplicate.count(str)) {
                 continue;
             }
-            if (distinct.find(str) != distinct.end()) {
+            if (distinct.count(str)) {
                 distinct.erase(str);
                 duplicate.insert(str);
             } else {
@@ -17,7 +17,7 @@ public:
         }
 
         for (const string& str : arr) {
-            if (duplicate.find(str) == duplicate.end()) {
+            if (!duplicate.count(str)) {
                 k--;
             }
             if (k == 0) {
